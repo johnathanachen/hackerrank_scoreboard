@@ -1,40 +1,36 @@
-import re
 import requests
-import bs4 as bs
-import urllib
+from lxml import html
 
-headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36',
+USERNAME = "jcswift7@gmail.com"
+PASSWORD = "TYurKpN2ztsv"
+
+LOGIN_URL = "https://www.hackerrank.com/login"
+URL = "https://www.hackerrank.com/leaderboard?friends=follows&page=1&practice=algorithms"
+
+def main():
+    session_requests = requests.session()
+
+    # Get login csrf token
+    result = session_requests.get(LOGIN_URL)
+    tree = html.fromstring(result.text)
+    # authenticity_token = list(set(tree.xpath("//input[@name='csrfmiddlewaretoken']/@value")))[0]
+
+    # Create payload
+    payload = {
+        "username": USERNAME, 
+        "password": PASSWORD, 
+        # "csrfmiddlewaretoken": authenticity_token
     }
 
-# start session
-session = requests.Session()
+    # Perform login
+    result = session_requests.post(LOGIN_URL, data = payload, headers = dict(referer = LOGIN_URL))
 
-login_url = "https://www.hackerrank.com/login?h_r=community_home&h_v=log_in&h_l=header_right"
-r = session.get(login_url)
-soup = bs.BeautifulSoup(r.text)
+    # Scrape url
+    result = session_requests.get(URL, headers = dict(referer = URL))
+    tree = html.fromstring(result.content)
+    hackername = tree.xpath("<div class='inline-block middle hacker-name text-ellipsis'>ajboxjr</div>")
 
-login_input = soup.find('input', {'id':'login'})
+    print(hackername)
 
-for tr in trs:
-    span = tr.find('span')
-    cle = span.get('id')
-
-    url = 'https://j2c-com.com/Euronaval14/catalogueWeb/ajaxSociete.php?cle=' + cle + '&rnd=' + generate_random_number(0,9999999999999999)
-    pop = session.post(url)  # <-- the POST request here contains cookies returned by the first GET call
-
-    print url
-    print pop.text
-
-    break
-
-def connect_site():
-    site_url = 'https://www.hackerrank.com/'
-    site_url_request = requests.get(site_url, headers=headers)
-    site_url_request.raise_for_status()
-    soup_final = bs.BeautifulSoup(site_url_request.text, 'lxml')
-
-    print(soup_final)
-
-connect_site()
-
+if __name__ == '__main__':
+    main()
