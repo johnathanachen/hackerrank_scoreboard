@@ -1,0 +1,3 @@
+A makeschool scoreboard that displays rankings for hackkerrank
+
+get informations from datascraping

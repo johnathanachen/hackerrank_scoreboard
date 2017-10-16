@@ -14,22 +14,18 @@ body {
 	font-family: "Lato", Arial;
 	color: #263238;
 }
-body .scoreboard {
 
-	align: center;
-}
 
 body .scoreboard {
 	display: flex;
-	flex-direction: col;
+	flex-direction: column;
 	justify-content: space-around;
-	width: 600px;
-	height: 100px;
 	background: #fff;
 	align-items: center;
 	border-radius: 8px;
 	box-shadow: 0px 10px 30px rgba(70,0,0,0.3);
 }
+
 body .container {
 	display: flex;
 	flex-direction: row;

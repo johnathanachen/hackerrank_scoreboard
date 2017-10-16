@@ -33,9 +33,9 @@ def main():
 
     # List of leaderboard names
     hacker_name = [item["data-value"] for item in soup_final.find_all() if "data-value" in item.attrs]
+    hacker_points = [item["data-attr10"] for item in soup_final.find_all() if "data-attr10" in item.attrs]
     print(hacker_name)
-
-
+    print(hacker_points)
 
 if __name__ == '__main__':
     main()

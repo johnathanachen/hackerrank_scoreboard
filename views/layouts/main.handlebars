@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        var jqxhr = $.get( "scrape.py", function() {
+            alert( "success" );
+          })
+            .done(function() {
+              alert( "second success" );
+            })
+            .fail(function() {
+              alert( "error" );
+            })
+            .always(function() {
+              alert( "finished" );
+            });
+    </script>
+    <title>Hack Rank Scoreboard</title>
+</head>
+<body>
+	<button class="button" id=addButton>click me!</button>
+<div class="scoreboard">
+    <div class="container">
+        <div class="block">
+          <div class="Rank">1</div>
+          <div class="string">rank</div>
+        </div>
+        <div class="block">
+          <div class="user_name">ajboxjr</div>
+          <div class="string">username</div>
+        </div>
+        <div class="block">
+          <div class="points">893</div>
+          <div class="string">Points</div>
+        </div>
+      </div>
+      </div>
+     {{{body}}}
+    <script src="scoreboard.js"></script>
+</body>
+</html>
