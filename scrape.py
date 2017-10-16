@@ -1,4 +1,6 @@
 import requests
+import re
+import bs4 as bs
 from lxml import html
 
 USERNAME = "jcswift7@gmail.com"
@@ -27,10 +29,13 @@ def main():
 
     # Scrape url
     result = session_requests.get(URL, headers = dict(referer = URL))
-    tree = html.fromstring(result.content)
-    hackername = tree.xpath("<div class='inline-block middle hacker-name text-ellipsis'>ajboxjr</div>")
+    soup_final = bs.BeautifulSoup(result.text, 'lxml')
 
-    print(hackername)
+    # List of leaderboard names
+    hacker_name = [item["data-value"] for item in soup_final.find_all() if "data-value" in item.attrs]
+    print(hacker_name)
+
+
 
 if __name__ == '__main__':
     main()
